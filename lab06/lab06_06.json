@@ -1,0 +1,5 @@
+{
+    "Error_Mostrado" : "Fatal error: Class ClaseHijo cannot extend final class ClaseBase in XXX_RUTA_XXX/lab06_06.php on line 12 ",
+    "Explicación" : "El error se produce cuando se intenta extender un método que esta declarado en la clase como final "
+    
+}
