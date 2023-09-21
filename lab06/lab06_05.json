@@ -1,0 +1,5 @@
+{
+    "Error_Mostrado" : "Fatal error: Cannot override final method ClaseBase::masTests() in XXX_RUTA_XXX/lab06_05.php on line 14",
+    "Explicación" : "El error se produce cuando se intenta anular o sobrescribir un método que esta declarado en la clase como final "
+    
+}

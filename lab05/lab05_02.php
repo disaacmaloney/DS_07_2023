@@ -14,6 +14,8 @@ if (is_uploaded_file ($_FILES['nombre_archivo_cliente']['tmp_name']))
     else
     {
         $extension = strtolower(pathinfo($nombrearchivo, PATHINFO_EXTENSION));
+        echo "El archivo se ha subido satisfactoriamente al directorio $extension <br>";
+
         if (in_array($extension, $extensionesValidas))
         {
             if (is_file($nombreCompleto))
