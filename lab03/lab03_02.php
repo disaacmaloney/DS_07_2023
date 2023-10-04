@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratoio - 03.02</title>
-</head>
-<body>
 <?php
-    $diametro = $_POST['diame'];
-    echo     $diametro;
-    $altura = $_POST['altu'];
-    $radio = $diametro/2 ;
-    $pi = 3.141593;
-    $volumen  = $pi*$radio*$radio*$altura;
-
-    echo "el valor del cilindro es de "+ $volumen  + " metros cubicos";
-    ?>
-</body>
-</html>
+    $precio1 = $_POST['precio1'];
+    $precio2 = $_POST['precio2'];
+    $precio3 = $_POST['precio3'];
+    $media = ($precio1 + $precio2 + $precio3) / 3;
+    echo "<br /> DATOS RECIBIDOS";
+    echo "<br /> Precio producto establecimiento 1: ".$precio1 . " dolares";
+    echo "<br /> Precio producto establecimiento 2: ".$precio2 . " dolares";
+    echo "<br /> Precio producto establecimiento 3: ".$precio3 . " dolares <br />";
+    echo "<br /> El precio medio del producto es de: ". $media . " dolares"  ;
+?>
