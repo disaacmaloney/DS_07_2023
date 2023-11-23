@@ -7,19 +7,19 @@
             parent::__construct();
         }
 
-        public function consultarNoticias(){
-            $instruccion = "call SP_LISTAR_NOTICIAS()";
+        public function validarUsuario($usuario, $clave){
+            $instruccion = "call SP_VALIDAR_USUARIO('" . $usuario . "', '" . $clave . "')";
             
+            echo $instruccion;
             $consulta = $this->_db->query($instruccion);
             $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
 
             if(!$resultado){
                 echo "Error al consultar las noticias";
             }
-            else{
-                return $resultado;
-                $resultado->close();
+            else{                
                 $this->_db->close();
+                return $resultado;
             }
         }
     }
