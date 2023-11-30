@@ -174,10 +174,19 @@ session_start();
             "ventas" => $arrVentas
         );
 
+        if(isset($_SESSION['listaVentasTerminadas'])){
+            $arrayVentas = $_SESSION['listaVentasTerminadas'];
+        }else{
+            $arrayVentas["records"] = array();
 
-        $arrayVentas["records"] = array();
+        }
+
+
+        
         array_push($arrayVentas["records"], $arrCli);
         $_SESSION['listaVentasTerminadas'] = $arrayVentas;
+        unset($_SESSION['clienteVenta']);
+        unset($_SESSION['listaVentas']);
     }
 
     
