@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["denominacion"])) {
 
     // Opción para ir al menú de comidas después de registrar el dinero
     echo '<p><a href="menucomidas.php">Ir al Menú de Comida</a></p>';
-
+    
     $_SESSION['listaDenominaciones'] = $denominaciones;
     exit;  // Detener la ejecución del resto del código
 }
