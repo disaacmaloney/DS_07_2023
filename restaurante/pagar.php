@@ -159,6 +159,25 @@ session_start();
 
         echo "<a href='menucomidas.php'>Volver a ingresar una venta</a>";
 
+        $arrVentas = array(
+            "ventas" => $_SESSION['listaVentas'],
+            "total" => $t_total,
+            "descuento" => $t_descuento,
+            "totalPagar" => $t_total - $t_descuento,
+            "denominaciones" => $denominaciones,
+            "totalDenominaciones" => $sumaDenominaciones,
+            "totalDevolver" => $sumaDenominaciones - ($t_total - $t_descuento)
+        );
+
+        $arrCli = array(
+            "cliente" => $_SESSION['clienteVenta'],
+            "ventas" => $arrVentas
+        );
+
+
+        $arrayVentas["records"] = array();
+        array_push($arrayVentas["records"], $arrCli);
+        $_SESSION['listaVentasTerminadas'] = $arrayVentas;
     }
 
     
