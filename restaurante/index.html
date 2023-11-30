@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Ventas Restaurante</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h2>Registro Ventas Restaurante</h2>
+
+    <!-- Formulario de inicio y cierre de turno -->
+    <form action="registroventas.php" method="post">
+        <label for="turno">Seleccione una opción:</label>
+        <select name="turno" id="turno" required>
+            <option value="inicio">Iniciar Turno</option>
+            <option value="cierre">Cerrar Turno</option>
+        </select>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <!-- Resto del formulario de registro de ventas -->
+    <script src="js/main.js"></script>
+    <script>
+        function redirectTomenucomidas() {
+            window.location.href = 'menucomidas.html';
+        }
+    </script>
+</body>
+</html>
