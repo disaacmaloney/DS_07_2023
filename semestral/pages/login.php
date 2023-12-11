@@ -1,3 +1,49 @@
+<?php
+    session_start();
+    if(array_key_exists('formLogin', $_POST)){
+        $user = $_POST['txtUser'];
+        $password = $_POST['txtPassword'];
+
+        $dataNewUser = array(
+            'user' => $user,
+            'password' => $password
+        );
+
+        $jsonDataNewLogin = json_encode($dataNewUser);
+
+        $url = 'http://localhost/DS_07_2023/semestral/apis/Login/login.php';
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataNewLogin);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $response = json_decode($response, true);
+        //se valida que el array no sea nulo
+        if($response === null){
+            echo 'Error al obtener los datos';
+        }
+        elseif(count($response) > 0)
+        {
+            $dataNewLogin = array(
+                'USE_USER' => $user,
+                'ID_USER' => $response[0]['ID_USER'], 
+                'USE_NAME' => $response[0]['USE_NAME'],
+                'USE_LASTNAME' => $response[0]['USE_LASTNAME'],
+                'USE_DATE_BIRTH' => $response[0]['USE_DATE_BIRTH'],
+                'ID_ROLE' => $response[0]['ID_ROLE']
+
+            );
+
+            $_SESSION['sessionUserLogin']  = $dataNewLogin;
+            header("Location: Index.php");
+            
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,28 +52,29 @@
     <title>Examen semestral - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="bg-gray-100 flex items-center justify-center h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-            <div class="flex justify-center mb-6">
-                <span class="inline-block bg-gray-200 rounded-full p-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
-                </span>
+<body class="bg-[#F4F7FF]">
+<section class="py-20 lg:py-[120px]">
+    <div class=" max-w-[525px] mx-auto text-center bg-white rounded-lg relative overflow-hidden  sm:px-12 md:px-[60px]">
+       <div class="mb-10 md:mb-16 text-center pt-10">
+          <a href="javascript:void(0)" class="inline-block max-w-[160px] mx-auto" >
+            <img src="#" alt="logo" />
+          </a>
+       </div>
+       <form action="login.php" method="post" >
+            <div class="mb-6">
+                <p>Ingrese su usuario y contraseña para iniciar sesión</p>
             </div>
-            <h2 class="text-2xl font-semibold text-center mb-4">Iniciar Sesión</h2>
-            <p class="text-gray-600 text-center mb-6">Ingrese sus datos para poder entrar.</p>
-            <form>
-                <div class="mb-4">
-                    <label for="fullName" class="block text-gray-700 text-sm font-semibold mb-2">Usuario</label>
-                    <input type="text" id="fullName" class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500" required placeholder="James_Brown">
-                </div>
-                <div class="mb-6">
-                    <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Contraseña</label>
-                    <input type="password" id="password" class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Ingresar</button>
-            </form>
-        </div>
+            <div class="mb-6">
+               <input type="text" name="txtUser" placeholder="Usuario" class=" w-full rounded-md border bordder-[#E9EDF4] py-3 px-5 bg-[#FCFDFE] text-base text-body-color placeholder-[#ACB6BE] outline-none focus:outline-none focus:ring-2 focus:ring-green-300 dark:focus:ring-green-800" />
+            </div>
+            <div class="mb-6">
+               <input type="password" name="txtPassword" placeholder="Contraseña" class=" w-full rounded-md border bordder-[#E9EDF4] py-3 px-5 bg-[#FCFDFE] text-base text-body-color placeholder-[#ACB6BE] outline-none focus:outline-none focus:ring-2 focus:ring-green-300 dark:focus:ring-green-800 " />
+            </div>
+            <div class="mb-10">
+               <input type="submit" name="formLogin" value="Sign In" class="w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"/>
+            </div>
+       </form>
     </div>
+</section>
 </body>
 </html>

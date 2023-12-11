@@ -6,25 +6,24 @@
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow- Headers, Authorization, X-Requested-With");
 
-    include_once  '../../class/Users.php';    
+    // incluir archivos de objetos
+    include_once  '../../class/LoginCE.php';    
 
-    $objUsers = new users();
+    $objLogin = new LoginCE();
 
+    // obtener los datos
     $data = json_decode(file_get_contents("php://input"));
     
     $data = file_get_contents('php://input');
 
+    // Decodificar los datos JSON
     $jsonData = json_decode($data, true);
 
-    $USE_NAME = $jsonData['USE_NAME'];
-    $USE_PASSWORD = $jsonData['USE_PASSWORD'];
-    $USE_USER = $jsonData['USE_USER'];
-    $USE_LASTNAME = $jsonData['USE_LASTNAME'];
-    $USE_DATE_BIRTH = $jsonData['USE_DATE_BIRTH'];
-    $ID_GENDER = $jsonData['ID_GENDER'];
-    $ID_ROLE = $jsonData['ID_ROLE'];
+    $user = $jsonData['user'];
+    $password = $jsonData['password'];
 
-    $result = $objUsers->PostUsers($USE_NAME, $USE_PASSWORD,$USE_USER, $USE_LASTNAME, $USE_DATE_BIRTH, $ID_GENDER, $ID_ROLE);
+    //imprime array
+    $result = $objLogin->Login($user, $password);
 
-
- 
+    echo json_encode($result);
+    

@@ -15,27 +15,6 @@
 <body>
     <?php
         echo "<div style='display: flex; flex-wrap: wrap; justify-content: space-between;'>";
-        echo "<div class='denominacion'>"; 
-        echo "<h2>Total en caja.</h2>";
-        if(isset($_SESSION['listaDenominaciones'])){
-            $slistaDenominaciones = $_SESSION['listaDenominaciones'];
-            echo "<table>";
-            echo "<tr>";
-            echo "<th>Denominación</th>";
-            echo "<th>Cantidad</th>";
-            echo "<th>Total</th>";
-            echo "</tr>";
-            foreach ($slistaDenominaciones as $denominacion => $cantidad) {
-                echo "<tr>";
-                echo "<td>$denominacion</td>";
-                echo "<td>$cantidad</td>";
-                echo "<td>$". $denominacion * $cantidad ."</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        }
-        echo "</div>";
-        echo "<div class='denominacion'>"; 
         echo "<h2>Total de ventas.</h2>";
         echo "<table>";
         echo "<tr>";
@@ -46,7 +25,7 @@
         echo "<tbody>";
 
         echo "<tr>";
-        echo "<td>Cantidad de clientes</td>";
+        echo "<td>Cantidad de Ventas Realizadas</td>";
 
         if(isset($_SESSION['listaVentasTerminadas'])){
             $slistaVentasTerminadas = $_SESSION['listaVentasTerminadas'];
@@ -58,30 +37,23 @@
             echo "<td>0</td>";
         }
         echo "</tr>";
+        echo "<tr>";
+        echo "<td>Cantidad de platos vendidos sin descuento</td>";
+        echo "<td>" . $_SESSION['SesTotaPlatosSinDescuento'] . "</td>";
+        echo "<td>" . $_SESSION['SesTotalSinDescuento'] ."</td>";
+        echo "</tr>";
 
+        echo "<tr>";
         echo "<td>Cantidad de ventas con descuento</td>";
+        echo "<td>". $_SESSION['SesTotaPlatosConDescuento'] . "</td>";
+        echo "<td>" . $_SESSION['SesTotalConDescuento'] ."</td>";
+        echo "</tr>";
 
-        if(isset($_SESSION['listaVentasTerminadas'])){
-            $slistaVentasTerminadas = $_SESSION['listaVentasTerminadas'];
-            $listVenta = $slistaVentasTerminadas["records"];
-            print_r($listVenta);
-            print_r($listVenta["ventas"]);
-            $cliente = $listVenta["ventas"];
-            if(count($cliente) > 0){
-                $descuento = 0;
-                foreach ($cliente as $venta) {
-                    print_r($venta);
-                    if($venta["esJubilado"] > 0){
-                        $descuento++;
-                    }
-                }
-                echo "<td>". $descuento ."</td>";
-                echo "<td>". $descuento ."</td>";
-            }
-        }else{
-            echo "<td>0</td>";
-            echo "<td>0</td>";
-        }
+        echo "<tr>";
+        echo "<td>Total de platos vendidos</td>";
+        echo "<td>" . ($_SESSION['SesTotaPlatosConDescuento'] + $_SESSION['SesTotaPlatosSinDescuento']). "</td>";
+        echo "<td>" . ($_SESSION['SesTotalConDescuento'] + $_SESSION['SesTotalSinDescuento']). "</td>";
+
         echo "</tr>";
         
         echo "</tbody>";
@@ -91,8 +63,16 @@
         echo "<div class='denominacion'>"; 
 
         echo "</div>";
+        echo "<div style='width: 50%; margin: auto; text-align: center; padding: 20px;'>";
+        echo "<button id='btnPagar'>Finalizar</button>";
         echo "</div>";
 
     ?>
+
+        <script>
+        document.getElementById("btnPagar").addEventListener("click", function() {
+        window.location.href = "index.php";
+        });
+  </script>
 </body>
 </html>

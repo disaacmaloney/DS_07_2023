@@ -13,8 +13,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['clienteVenta']))
 {
     $arrVentas = $_SESSION['listaVentas'];
 
-    echo "entro a post y existe cliente";
-    echo "<br>";
     $cliente = $_POST['cliente'];
     $cliente = $_SESSION['clienteVenta'];
     $plato = $_POST['plato'];
@@ -48,9 +46,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['clienteVenta']))
         default:
             $precio = 0.00;
     }
-    echo "es jubilado = " . $jubilado;
-    echo "<br>plato = " . $plato;
-    echo "<br>cantidad = " . $cantidad;
 
     $arrVenta = array(
         "plato" => $plato,
@@ -61,7 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['clienteVenta']))
     array_push($arrVentas["records"], $arrVenta);
     $_SESSION['listaVentas'] = $arrVentas;
 }
-elseif($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_SESSION['clienteVenta']))
+elseif($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_SESSION['clienteVenta']) && !array_key_exists('iniciar', $_POST))
 {
     $arrVentas["records"] = array();
     $_SESSION['clienteVenta'] = $_POST['cliente'];
@@ -275,9 +270,12 @@ else{
         echo "<th>Descuento</th>";
         echo "<th>Precio</th>";
         echo "<th>Subtotal</th>";
+        echo "<th>Total</th>";
         echo "</tr>";
 
         echo "<tbody>";
+        $total_descuento = 0;
+        $total_venta = 0;
 
         foreach($slistaVenta["records"] as $venta)
         {
@@ -288,23 +286,35 @@ else{
             echo "<td>" . $venta["cantidad"] . "</td>";
             if($venta["esJubilado"] == 0)
             {
+                $total_venta = $total_venta + $total;
                 echo "<td>No</td>";
                 echo "<td>0.00</td>";
+                echo "<td>" . $venta["precio"] . "</td>";
+                echo "<td>" . ($venta["precio"]* $venta["cantidad"]). "</td>";
+                echo "<td>" . $total . "</td>";
             }
             else
             {
+                $total_descuento = $total_descuento + $descuento;
+                $total_venta = $total_venta + $total;
+
                 echo "<td>Si</td>";
                 echo "<td>" .- $descuento . "</td>";
+                echo "<td>" . $venta["precio"] . "</td>";
+                echo "<td>" . ($venta["precio"]* $venta["cantidad"]). "</td>";
+                echo "<td>" . $total - $descuento . "</td>";
 
             }
-            echo "<td>" . $venta["precio"] . "</td>";
-            echo "<td>" . $total - $descuento . "</td>";
+            
             echo "</tr>";
         }
         echo "</tbody>";
         echo "</table>";
+
         echo "<div style='width: 50%; margin: auto; text-align: center; padding: 20px;'>";
-        echo "<button id='btnPagar'>Pagar</button>";
+        echo "<p>Total Venta: " . $total_venta . "</p>";
+        echo "<p>Total Descuento: -" . $total_descuento . "</p>";
+        echo "<p>Total a Pagar: " . ($total_venta - $total_descuento) . "</p>";
         echo "</div>";
     }
 
@@ -323,7 +333,7 @@ else{
     </div>
 
     <!-- Enlace para ir a la factura -->
-    <p><a href="#" id="ver-factura">Ver Factura</a></p>
+    <p><a href="factura.php" id="ver-factura">Ver Factura</a></p>
 
     <script>
         document.getElementById("cerrar-turno").addEventListener("click", function() {
