@@ -20,11 +20,7 @@
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     $response = curl_exec($ch);
     curl_close($ch);
-    $response = json_decode($response, true);
-
-    print_r($response);
-
-        
+    $response = json_decode($response, true);        
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +57,6 @@
                             echo "<div id='dropdownNavbar' class='hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44'>";
                             echo "<ul class='py-1' aria-labelledby='dropdownLargeButton'>";
                             foreach ($lstMenu['subMenu'] as $lstSubsMenus) {
-                                print_r($lstMenu['subMenu'] );
                                 echo "<li>";
                                 echo "<a href='" . $lstSubsMenus['MEN_URL'] . "' class='text-sm hover:bg-green-800 hover:text-white block px-4 py-2'>" . $lstSubsMenus['MEN_NAME'] ."</a>"; 
                                 echo "</li>";
