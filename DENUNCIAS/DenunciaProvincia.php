@@ -41,17 +41,16 @@
                     <td>Descripcion</td>
                     <td>Provincia</td>
                     <td>Ciudadano</td>
-                    <td>Categoria</td>
+                    <td>Categoría</td>
                 </tr>
             </thead>
             <tbody>
                 <?php
                     if(isset($resultDenuncia)){
-                        print_r($resultDenuncia);
                         foreach($resultDenuncia as $key => $value){
                             echo "<tr>";
                             echo "<td>".$value['id_denuncia']."</td>";
-                            echo "<td>".$value['fecha']."</td>";
+                            echo "<td>".$value['au_date']."</td>";
                             echo "<td>".$value['descripcion']."</td>";
                             echo "<td>".$value['nombre_provincia']."</td>";
                             echo "<td>".$value['nombre_ciudadano']."</td>";
@@ -62,3 +61,4 @@
                 ?>
         
     </div>
+</div>
