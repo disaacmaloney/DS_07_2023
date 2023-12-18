@@ -1,0 +1,68 @@
+*{	border:0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	background-image:url(../IMG/denuncialegal.jpg);
+	background-size: cover;
+}
+
+h1 {
+	text-align: center;
+	padding-top: 40px;
+	color: #eee;
+}
+
+#MainCaja{
+	
+	padding-top: 50px;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+table{
+
+    width: 600px;
+    margin: auto;
+}
+th{
+    background: #D94A38;
+    color: #FFF;
+    padding: 10px 20px;
+}
+td{
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    padding: 20px 20px 15px;
+    }
+tbody tr:nth-child(odd)
+{
+    background: #eee;
+}
+tbody tr:nth-child(even)
+{
+    background: #eee;
+}
+
+tfoot td{
+    background: #666;
+    color:#FFF;
+    padding-bottom: 10px;
+    border-radius: 0 0 10px 10px;
+}
+caption{
+    background: #666;
+    color:#FFF;
+    padding-bottom: 0px;
+    border-radius: 10px 10px 0 0;
+}
+
+a:link { 
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}

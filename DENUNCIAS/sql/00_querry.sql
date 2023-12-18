@@ -1,6 +1,6 @@
 USE bd_denuncias;
 
-SELECT * FROM ciudadano
+SELECT * FROM denuncia;
 
 ALTER TABLE `denuncia` DROP INDEX `id_ciudadano`;
 ALTER TABLE `ciudadano` DROP PRIMARY KEY;
